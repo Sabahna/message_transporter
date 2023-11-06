@@ -1,4 +1,5 @@
 import "dart:async";
+import "dart:convert";
 
 import "package:flutter/cupertino.dart";
 import "package:message_transporter/models/client_abstract.dart";
@@ -60,7 +61,7 @@ class MessageBrokerService extends MessageBrokerServiceAbstract {
         .withWillQos(MqttQos.atLeastOnce)
         .withWillTopic("connection")
         .withWillMessage(
-          _userStatus().toString(),
+          _userStatus(),
         );
 
     _client.connectionMessage = connMessage;
@@ -123,7 +124,7 @@ class MessageBrokerService extends MessageBrokerServiceAbstract {
     debugPrint("Connected");
     isConnected = true;
 
-    publish("connection", data: _userStatus(isConnected: true).toString());
+    publish("connection", data: _userStatus(isConnected: true));
   }
 
   // unconnected
@@ -152,9 +153,9 @@ class MessageBrokerService extends MessageBrokerServiceAbstract {
     // debugPrint("Message Transporter, Ping response client callback invoked");
   }
 
-  Map<String, dynamic> _userStatus({bool isConnected = false}) {
+  String _userStatus({bool isConnected = false}) {
     _userIdentifier["status"] = isConnected;
 
-    return _userIdentifier;
+    return json.encode(_userIdentifier);
   }
 }
