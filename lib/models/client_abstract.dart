@@ -20,6 +20,8 @@ abstract class MessageBrokerServiceAbstract {
     String? password,
   });
 
+  void disconnect();
+
   /// Listen all of the topics changes or updates
   // void listen(FutureOr<void> Function(QueueMessage message)? handler);
 

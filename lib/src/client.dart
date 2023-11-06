@@ -108,6 +108,12 @@ class MessageBrokerService extends MessageBrokerServiceAbstract {
     }
   }
 
+  @override
+  void disconnect() {
+    _handlers.clear();
+    _client.disconnect();
+  }
+
   // connection succeeded
   void _onConnected() {
     debugPrint("Connected");
@@ -137,6 +143,6 @@ class MessageBrokerService extends MessageBrokerServiceAbstract {
 
   // PING response received
   void _pong() {
-    debugPrint("Ping response client callback invoked");
+    debugPrint("Message Transporter, Ping response client callback invoked");
   }
 }
