@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  mqtt5_client: ^4.0.3
   mqtt_client: ^10.0.0
 
 dev_dependencies:

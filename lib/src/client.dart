@@ -16,6 +16,7 @@ class MessageBrokerService extends MessageBrokerServiceAbstract {
 
   /// Client info
   late MqttServerClient _client;
+  final Map<String, dynamic> _userIdentifier = {};
 
   /// handler
   ///
@@ -34,6 +35,7 @@ class MessageBrokerService extends MessageBrokerServiceAbstract {
       throw "Service can connect once!";
     }
 
+    _userIdentifier["id"] = userIdentifier;
     _client = MqttServerClient.withPort(
       server,
       userIdentifier,
@@ -49,15 +51,17 @@ class MessageBrokerService extends MessageBrokerServiceAbstract {
       ..onSubscribeFail = _onSubscribeFail
       ..pongCallback = _pong
       ..connectTimeoutPeriod = 5000
-      ..keepAlivePeriod = 60
+      ..keepAlivePeriod = 20
       ..autoReconnect = true;
 
     final connMessage = MqttConnectMessage()
         .authenticateAs(userName, password)
-        .withWillTopic("willtopic")
-        .withWillMessage("Will message")
         .startClean()
-        .withWillQos(MqttQos.atLeastOnce);
+        .withWillQos(MqttQos.atLeastOnce)
+        .withWillTopic("connection")
+        .withWillMessage(
+          _userStatus().toString(),
+        );
 
     _client.connectionMessage = connMessage;
     try {
@@ -118,6 +122,8 @@ class MessageBrokerService extends MessageBrokerServiceAbstract {
   void _onConnected() {
     debugPrint("Connected");
     isConnected = true;
+
+    publish("connection", data: _userStatus(isConnected: true).toString());
   }
 
   // unconnected
@@ -143,6 +149,12 @@ class MessageBrokerService extends MessageBrokerServiceAbstract {
 
   // PING response received
   void _pong() {
-    debugPrint("Message Transporter, Ping response client callback invoked");
+    // debugPrint("Message Transporter, Ping response client callback invoked");
+  }
+
+  Map<String, dynamic> _userStatus({bool isConnected = false}) {
+    _userIdentifier["status"] = isConnected;
+
+    return _userIdentifier;
   }
 }
