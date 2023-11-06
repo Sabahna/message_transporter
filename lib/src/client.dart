@@ -24,6 +24,10 @@ class MessageBrokerService extends MessageBrokerServiceAbstract {
   final Map<String, FutureOr<void> Function(QueueMessage message)> _handlers =
       {};
 
+  List<String> get getSubscribeList {
+    return _handlers.keys.toList();
+  }
+
   @override
   Future<MqttServerClient> connect({
     required String server,

@@ -130,14 +130,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
-  mqtt5_client:
-    dependency: transitive
-    description:
-      name: mqtt5_client
-      sha256: "50eab5dcc98129a5d19c32bdb009dbef6699a6ff8a43ae48e90afba547647faa"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.0.3"
   mqtt_client:
     dependency: transitive
     description:
