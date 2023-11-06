@@ -1,7 +1,4 @@
 library message_transporter;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export "models/client_abstract.dart";
+export "src/message_transporter.dart";
