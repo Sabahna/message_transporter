@@ -5,6 +5,9 @@ import "package:mqtt_client/mqtt_server_client.dart";
 abstract class MessageBrokerServiceAbstract {
   bool isConnected = false;
 
+  /// Get all of the topic you subscribed
+  List<String> get getSubscribeList;
+
   /// [server] is the host name. Eg- transporter.jackwill.com
   ///
   /// [userIdentifier] must be unique

@@ -24,6 +24,7 @@ class MessageBrokerService extends MessageBrokerServiceAbstract {
   final Map<String, FutureOr<void> Function(QueueMessage message)> _handlers =
       {};
 
+  @override
   List<String> get getSubscribeList {
     return _handlers.keys.toList();
   }
