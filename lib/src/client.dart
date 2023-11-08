@@ -136,6 +136,8 @@ class MessageBrokerService extends MessageBrokerServiceAbstract {
   void _onDisconnected() {
     debugPrint("Disconnected");
     isConnected = false;
+
+    publish("connection", data: _userStatus());
   }
 
   // subscribe to topic succeeded
