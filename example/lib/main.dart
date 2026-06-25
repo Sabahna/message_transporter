@@ -55,17 +55,17 @@ class _MyHomePageState extends State<MyHomePage> {
     // Username - telemedicine
     // Password - Welcome9TT
     await messageTransporter.connect(
-      server: "mqtt.telemed.sabahna.com",
-      userIdentifier: "mqttx_aer234",
-      userName: "telemedicine",
-      password: "Welcome9TT",
+      server: "68.168.216.198",
+      userIdentifier: "os-mqtt-client-124",
+      userName: "POS",
+      password: "pos123",
     );
 
     messageTransporter.subscribe(
       "topic_test",
       handler: (QueueMessage message) {
         debugPrint(
-            "------init state----------------${message.topic}-----${message.message}-----------------");
+            "------init state----------------${message.topic}-----${message.message}----${messageTransporter.isConnected}-------------");
       },
     );
   }
